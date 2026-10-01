@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competencias Específicas y Criterios - Conocimiento del Medio Andaluz</title>
+    <style>
+        :root {
+            --bg-verde: #e8f5e9;
+            --verde-oscuro: #1b5e20;
+            --verde-medio: #2e7d32;
+            --verde-claro: #4caf50;
+            --c-accion: #1d4ed8;    /* Azul para Acción / Saber hacer */
+            --c-contenido: #047857; /* Verde para Contenido / Contexto */
+            --c-finalidad: #b91c1c; /* Rojo para Finalidad / Para qué */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-verde);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .window {
+            background-color: #ffffff;
+            border: 4px solid var(--verde-oscuro);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 680px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Vistas / Pantallas */
+        .screen {
+            display: none;
+            padding: 30px;
+            flex: 1;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pantalla Inicial */
+        #screen-home {
+            text-align: center;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            color: var(--verde-oscuro);
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .header-title h2 {
+            color: #2e7d32;
+            font-size: 1.2rem;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .header-title h3 {
+            color: var(--c-accion);
+            font-size: 1.1rem;
+            margin-top: 4px;
+            font-weight: 700;
+        }
+
+        /* Iconos 3D Animados */
+        .icons-3d-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        .icon-3d {
+            font-size: 80px;
+            filter: drop-shadow(0 10px 8px rgba(0,0,0,0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .icon-3d:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .icon-3d:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(4deg); }
+        }
+
+        /* Botones del menú principal */
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .btn-menu {
+            background-color: var(--verde-oscuro);
+            color: white;
+            border: none;
+            padding: 18px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-menu:hover {
+            background-color: var(--verde-medio);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .footer-credits {
+            margin-top: 20px;
+            font-weight: 600;
+            color: var(--verde-oscuro);
+            font-size: 0.9rem;
+        }
+
+        /* Estilos Pantallas de Contenido */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #c8e6c9;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .top-bar h2 {
+            color: var(--verde-oscuro);
+            font-size: 1.3rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action {
+            background-color: var(--c-accion);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: #1e40af;
+        }
+
+        .btn-back {
+            background-color: var(--verde-oscuro);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-back:hover {
+            background-color: var(--verde-medio);
+        }
+
+        /* Leyenda de Colores */
+        .leyenda {
+            background-color: #f1f8e9;
+            border: 1px solid #c8e6c9;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            align-items: center;
+        }
+
+        .leyenda-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .txt-accion { color: var(--c-accion); font-weight: 600; }
+        .txt-contenido { color: var(--c-contenido); font-weight: 600; }
+        .txt-finalidad { color: var(--c-finalidad); font-weight: 600; }
+
+        .content-scroll {
+            overflow-y: auto;
+            max-height: 490px;
+            padding-right: 10px;
+        }
+
+        /* Tarjetas Estándar */
+        .comp-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid var(--verde-oscuro);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .comp-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .comp-card h4 {
+            color: var(--verde-oscuro);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        .tag-kw {
+            background-color: var(--verde-oscuro);
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .comp-literal {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #334155;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .comp-resumen {
+            color: var(--verde-oscuro);
+            font-weight: bold;
+            background-color: #f1f8e9;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--c-accion);
+        }
+
+        /* Botones de Selección de Cursos */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .btn-course {
+            background-color: var(--verde-oscuro);
+            color: white;
+            border: none;
+            padding: 25px 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-course:hover {
+            background-color: var(--verde-medio);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Vista Dos Columnas para Criterios */
+        .criterios-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-left: 5px solid var(--c-accion);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .criterios-col-left {
+            background-color: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .criterios-col-right {
+            background-color: #f0fdf4;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #bbf7d0;
+        }
+
+        .criterios-col-left h4 {
+            color: var(--verde-oscuro);
+            font-size: 0.98rem;
+            margin-bottom: 6px;
+        }
+
+        .criterios-col-right h4 {
+            color: var(--c-contenido);
+            font-size: 0.98rem;
+            margin-bottom: 6px;
+        }
+
+        .crit-list {
+            list-style-type: none;
+        }
+
+        .crit-list li {
+            font-size: 0.9rem;
+            color: #1e293b;
+            margin-bottom: 8px;
+            padding-left: 12px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .crit-list li::before {
+            content: "•";
+            color: var(--c-contenido);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .kw-bold {
+            font-weight: 800;
+            color: var(--verde-oscuro);
+            background-color: #e2e8f0;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        /* Scrollbar styling */
+        .content-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .content-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .content-scroll::-webkit-scrollbar-thumb {
+            background: #a5d6a7;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="window">
+
+    <!-- PANTALLA PRINCIPAL -->
+    <div id="screen-home" class="screen active">
+        <div class="header-title">
+            <h1>CONOCIMIENTO DEL MEDIO NATURAL, SOCIAL Y CULTURAL</h1>
+            <h2>OPOSICIONES DE EDUCACIÓN PRIMARIA</h2>
+            <h3>ANDALUCÍA</h3>
+        </div>
+
+        <div class="icons-3d-container">
+            <div class="icon-3d">🌱</div>
+            <div class="icon-3d">🌍</div>
+            <div class="icon-3d">🏛️</div>
+        </div>
+
+        <div class="menu-buttons">
+            <button class="btn-menu" onclick="showScreen('screen-medio')">COMPETENCIAS ESPECÍFICAS</button>
+            <button class="btn-menu" onclick="showScreen('screen-medio-cursos')">CRITERIOS DE EVALUACIÓN POR CURSO</button>
+        </div>
+
+        <div class="footer-credits">
+            Aplicación adaptada para Conocimiento del Medio
+        </div>
+    </div>
+
+    <!-- PANTALLA COMPETENCIAS ESPECÍFICAS -->
+    <div id="screen-medio" class="screen">
+        <div class="top-bar">
+            <h2>Conocimiento del Medio Natural, Social y Cultural</h2>
+            <div class="nav-actions">
+                <button class="btn-action" onclick="showScreen('screen-medio-cursos')">CRITERIOS DE EVALUACIÓN</button>
+                <button class="btn-back" onclick="showScreen('screen-home')">Volver al Inicio</button>
+            </div>
+        </div>
+
+        <div class="leyenda">
+            <span><strong>Análisis Curricular:</strong></span>
+            <div class="leyenda-item"><span class="dot" style="background: var(--c-accion);"></span> <span class="txt-accion">Acción / Destreza</span></div>
+            <div class="leyenda-item"><span class="dot" style="background: var(--c-contenido);"></span> <span class="txt-contenido">Contenido / Contexto</span></div>
+            <div class="leyenda-item"><span class="dot" style="background: var(--c-finalidad);"></span> <span class="txt-finalidad">Finalidad / Aplicación</span></div>
+        </div>
+
+        <div class="content-scroll">
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 1</h4>
+                    <span class="tag-kw">Método científico e investigación</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Utilizar dispositivos y recursos digitales de forma segura y responsable,</span> <span class="txt-contenido">buscando, analizando y organizando información factual,</span> <span class="txt-finalidad">para transformar la información en conocimiento e iniciarse en el desarrollo de la competencia digital.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Uso seguro de TIC y recursos digitales para la búsqueda y organización de información científica del entorno.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 2</h4>
+                    <span class="tag-kw">Proyectos de diseño y pensamiento computacional</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Planteamiento y resolución de problemas de la vida cotidiana</span> <span class="txt-contenido">aplicando el pensamiento computacional, el diseño de prototipos y la experimentación,</span> <span class="txt-finalidad">para proponer soluciones creativas, sostenibles e innovadoras.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Planteamiento y resolución de problemas mediante pensamiento computacional, proyectos y prototipos.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 3</h4>
+                    <span class="tag-kw">Salud y estilos de vida saludables</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Conocer y adoptar hábitos de vida saludable,</span> <span class="txt-contenido">comprendiendo el funcionamiento del cuerpo humano y analizando los factores que influyen en la salud física y mental,</span> <span class="txt-finalidad">para prevenir enfermedades y promover el bienestar integral propio y comunitario.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Conocimiento del cuerpo humano y promoción de hábitos de vida saludables y autocuidado.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 4</h4>
+                    <span class="tag-kw">Medio ambiente, sostenibilidad y cambio climático</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Identificar los elementos y interacciones de los ecosistemas naturales y humanos,</span> <span class="txt-contenido">analizando los impactos de la actividad humana y el cambio climático,</span> <span class="txt-finalidad">para promover acciones orientadas a la sostenibilidad, conservación y transición ecológica en Andalucía.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Análisis de ecosistemas, impacto humano y fomento de la sostenibilidad y conservación ambiental.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 5</h4>
+                    <span class="tag-kw">Geografía, espacio y sociedad</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Comprender las características demográficas, geográficas y socioeconómicas del entorno,</span> <span class="txt-contenido">utilizando herramientas de representación espacial y mapas,</span> <span class="txt-finalidad">para valorar la diversidad territorial, cultural y social, especialmente del ámbito andaluz.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Orientación espacial, comprensión de la geografía, organización territorial y demografía.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 6</h4>
+                    <span class="tag-kw">Historia, tiempo y patrimonio cultural</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Reconocer los principales hechos y etapas históricas a lo largo del tiempo,</span> <span class="txt-contenido">identificando las causas y consecuencias de los cambios sociales y culturales,</span> <span class="txt-finalidad">para valorar el patrimonio histórico-artístico e identitario de Andalucía.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Comprensión de la línea del tiempo histórica, procesos de cambio y valoración del patrimonio andaluz.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 7</h4>
+                    <span class="tag-kw">Convivencia, democracia y ciudadanía activa</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Aplicar principios de convivencia, igualdad de género, diversidad y resolución pacífica de conflictos,</span> <span class="txt-contenido">comprendiendo las instituciones democráticas y los derechos y deberes ciudadanos,</span> <span class="txt-finalidad">para ejercer una ciudadanía activa, comprometida y responsable.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Fomento de la convivencia, instituciones democráticas, valores de igualdad y participación ciudadana.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 8</h4>
+                    <span class="tag-kw">Conciencia ecosocial y desarrollo sostenible</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Analizar las relaciones entre el medio natural, social y cultural,</span> <span class="txt-contenido">evaluando los retos del desarrollo sostenible y el uso responsable de los recursos,</span> <span class="txt-finalidad">para asumir un compromiso activo con el entorno social y ambiental.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Integración de la conciencia ecosocial y propuestas de actuación ante los retos del desarrollo global.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 9</h4>
+                    <span class="tag-kw">Cultura digital y alfabetización informacional</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Comprender el impacto de la tecnología en la sociedad y el medio ambiente,</span> <span class="txt-contenido">utilizando medios digitales para la comunicación y el aprendizaje colaborativo de forma ética,</span> <span class="txt-finalidad">para actuar con criterio crítico ante la información en entornos virtuales.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Actitud crítica ante entornos digitales, seguridad en redes y uso ético de las herramientas tecnológicas.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA SELECCIÓN DE CURSOS -->
+    <div id="screen-medio-cursos" class="screen">
+        <div class="top-bar">
+            <h2>Conocimiento del Medio: Criterios por Curso</h2>
+            <button class="btn-back" onclick="showScreen('screen-medio')">Volver a Competencias</button>
+        </div>
+
+        <div class="courses-grid">
+            <button class="btn-course" onclick="showScreen('screen-medio-1p')">1º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-medio-2p')">2º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-medio-3p')">3º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-medio-4p')">4º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-medio-5p')">5º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-medio-6p')">6º PRIMARIA</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA 1º PRIMARIA -->
+    <div id="screen-medio-1p" class="screen">
+        <div class="top-bar">
+            <h2>Conocimiento del Medio - Criterios: 1º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-medio-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Utilizar dispositivos y recursos digitales de forma segura y responsable... <span class="kw-bold">MÉTODO CIENTÍFICO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.a.</strong> Seleccionar y utilizar de forma guiada dispositivos digitales sencillos para la búsqueda visual o elemental de información sobre el entorno natural y social.</li>
+                        <li><strong>1.2.a.</strong> Iniciarse en la observación directa de fenómenos cercanos planteando preguntas guiadas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Planteamiento y resolución de problemas de la vida cotidiana... <span class="kw-bold">PROYECTOS Y PROTOTIPOS</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.a.</strong> Proponer soluciones manipulativas sencillas a problemas del entorno próximo siguiendo pautas guiadas.</li>
+                        <li><strong>2.2.a.</strong> Construir maquetas o estructuras elementales utilizando materiales reciclables de uso cotidiano.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Conocer y adoptar hábitos de vida saludable... <span class="kw-bold">SALUD Y BIENESTAR</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.a.</strong> Identificar las partes principales del cuerpo humano y las emociones básicas asociándolas al bienestar personal.</li>
+                        <li><strong>3.2.a.</strong> Reconocer la importancia de la higiene personal, el descanso y la alimentación equilibrada en el día a día.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Identificar los elementos y interacciones de los ecosistemas... <span class="kw-bold">SOSTENIBILIDAD</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.a.</strong> Reconocer seres vivos e inertes de su entorno inmediato distinguiendo sus características básicas.</li>
+                        <li><strong>4.2.a.</strong> Practicar acciones elementales de cuidado y respeto hacia los animales, plantas y el medio entorno escolar.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Comprender las características demográficas, geográficas y socioeconómicas... <span class="kw-bold">GEOGRAFÍA Y ESPACIO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.a.</strong> Orientarse en el espacio cercano (casa, aula, colegio) utilizando nociones espaciales básicas (arriba, abajo, cerca, lejos).</li>
+                        <li><strong>5.2.a.</strong> Identificar los elementos principales del paisaje rural y urbano más próximo.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Reconocer los principales hechos y etapas históricas... <span class="kw-bold">HISTORIA Y PATRIMONIO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.a.</strong> Ordenar cronológicamente hechos sencillos de la historia personal y familiar usando líneas del tiempo elementales.</li>
+                        <li><strong>6.2.a.</strong> Reconocer tradiciones y costumbres populares del entorno andaluz cercano.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Aplicar principios de convivencia, igualdad de género... <span class="kw-bold">DEMOCRACIA Y CIUDADANÍA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.a.</strong> Cumplir las normas elementales de convivencia en el grupo-clase participando activamente en las tareas colectivas.</li>
+                        <li><strong>7.2.a.</strong> Emplear el diálogo para resolver pequeñas discrepancias o conflictos en el juego o el trabajo en equipo.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Analizar las relaciones entre el medio natural, social y cultural... <span class="kw-bold">CONCIENCIA ECOSOCIAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.a.</strong> Identificar acciones de reciclaje y ahorro de agua o energía en la escuela y el hogar.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Comprender el impacto de la tecnología en la sociedad... <span class="kw-bold">CULTURA DIGITAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.a.</strong> Reconocer el uso de las tecnologías cotidianas identificando pautas saludables en el tiempo de uso de pantallas.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 2º PRIMARIA -->
+    <div id="screen-medio-2p" class="screen">
+        <div class="top-bar">
+            <h2>Conocimiento del Medio - Criterios: 2º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-medio-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Utilizar dispositivos y recursos digitales de forma segura... <span class="kw-bold">MÉTODO CIENTÍFICO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.b.</strong> Utilizar recursos digitales guiados para obtener información sencilla sobre el medio natural andaluz.</li>
+                        <li><strong>1.2.b.</strong> Explicar verbalmente observaciones sencillas realizadas sobre la naturaleza y el entorno cercano.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Planteamiento y resolución de problemas... <span class="kw-bold">PROYECTOS Y PROTOTIPOS</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.b.</strong> Diseñar de forma cooperativa prototipos sencillos que respondan a una necesidad práctica concreta del entorno escolar.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Conocer y adoptar hábitos de vida saludable... <span class="kw-bold">SALUD Y BIENESTAR</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.b.</strong> Relacionar hábitos de alimentación saludable y actividad física con la prevención de enfermedades comunes.</li>
+                        <li><strong>3.2.b.</strong> Identificar conductas seguras en el tránsito vial como peatones o usuarios de transportes.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Identificar los elementos y interacciones de los ecosistemas... <span class="kw-bold">SOSTENIBILIDAD</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.b.</strong> Clasificar animales y plantas del entorno andaluz según sus características observables.</li>
+                        <li><strong>4.2.b.</strong> Proponer medidas concretas para evitar la contaminación y promover el ahorro de recursos en el colegio.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Comprender las características demográficas y geográficas... <span class="kw-bold">GEOGRAFÍA Y ESPACIO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.b.</strong> Representar el espacio mediante planos o esquemas sencillos de la localidad o municipio.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Reconocer hechos y etapas históricas... <span class="kw-bold">HISTORIA Y PATRIMONIO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.b.</strong> Identificar objetos y costumbres del pasado comparándolos con las manifestaciones actuales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Aplicar principios de convivencia e igualdad... <span class="kw-bold">DEMOCRACIA Y CIUDADANÍA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.b.</strong> Mostrar respeto por la diversidad de origen, género o capacidades dentro de la comunidad escolar.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Analizar las relaciones con el medio natural y social... <span class="kw-bold">CONCIENCIA ECOSOCIAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.b.</strong> Participar activamente en iniciativas de conservación del patrimonio natural escolar.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Comprender el impacto de la tecnología... <span class="kw-bold">CULTURA DIGITAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.b.</strong> Identificar la procedencia y función de objetos tecnológicos habituales en la vida cotidiana.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 3º PRIMARIA -->
+    <div id="screen-medio-3p" class="screen">
+        <div class="top-bar">
+            <h2>Conocimiento del Medio - Criterios: 3º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-medio-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Utilizar dispositivos y recursos digitales... <span class="kw-bold">MÉTODO CIENTÍFICO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.a.</strong> Buscar información sobre el medio natural y social utilizando motores de búsqueda infantiles o seguros de forma guiada.</li>
+                        <li><strong>1.2.a.</strong> Diseñar pequeñas investigaciones de laboratorio o de campo anotando observaciones e hipótesis básicas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Planteamiento y resolución de problemas... <span class="kw-bold">PROYECTOS Y PROTOTIPOS</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.a.</strong> Construir modelos simples para representar aparatos o sistemas naturales empleando técnicas sencillas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Conocer y adoptar hábitos de vida saludable... <span class="kw-bold">SALUD Y BIENESTAR</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.a.</strong> Comprender las funciones de los sistemas principales del cuerpo humano (digestivo, respiratorio, circulatorio, excretor).</li>
+                        <li><strong>3.2.a.</strong> Planificar dietas sencillas y equilibradas valorando los productos autóctonos de Andalucía.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Identificar elementos de los ecosistemas... <span class="kw-bold">SOSTENIBILIDAD</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.a.</strong> Identificar ecosistemas terrestres y acuáticos característicos de Andalucía reconociendo cadenas tróficas elementales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Comprender características geográficas y socioeconómicas... <span class="kw-bold">GEOGRAFÍA Y ESPACIO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.a.</strong> Utilizar mapas físicos y políticos sencillos para localizar relieve, ríos y provincias de Andalucía.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Reconocer hechos y etapas históricas... <span class="kw-bold">HISTORIA Y PATRIMONIO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.a.</strong> Situar en una línea del tiempo las grandes etapas de la Historia reconociendo restos arqueológicos o monumentos andaluces.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Aplicar principios de convivencia... <span class="kw-bold">DEMOCRACIA Y CIUDADANÍA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.a.</strong> Comprender el papel de las administraciones locales (ayuntamientos) y los servicios públicos esenciales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Analizar las relaciones con el medio... <span class="kw-bold">CONCIENCIA ECOSOCIAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.a.</strong> Evaluar las consecuencias del uso desmedido del plástico y proponer alternativas de reutilización.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Comprender el impacto de la tecnología... <span class="kw-bold">CULTURA DIGITAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.a.</strong> Utilizar responsablemente la red aplicando normas básicas de etiqueta digital y privacidad.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 4º PRIMARIA -->
+    <div id="screen-medio-4p" class="screen">
+        <div class="top-bar">
+            <h2>Conocimiento del Medio - Criterios: 4º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-medio-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Utilizar dispositivos y recursos digitales... <span class="kw-bold">RECURSOS DIGITALES Y PRODUCTIVIDAD</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.b.</strong> Utilizar dispositivos y recursos digitales, de acuerdo con las necesidades del contexto educativo de forma segura, buscando información, comunicándose y trabajando de forma individual y en equipo y creando contenidos digitales sencillos, aumentando la productividad y eficiencia en el propio trabajo.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Indagación y proyecto científico... <span class="kw-bold">MÉTODO CIENTÍFICO E INDAGACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.b.</strong> Demostrar y mantener la curiosidad sobre un tema relacionado con el medio natural, social o cultural específico y cercano, formulando preguntas y realizando predicciones razonadas.</li>
+                        <li><strong>2.2.b.</strong> Buscar, seleccionar y contrastar información, de diferentes fuentes seguras y fiables, usando los criterios de fiabilidad de fuentes, adquiriendo léxico científico básico, utilizándola en investigaciones relacionadas con el medio natural, social y cultural.</li>
+                        <li><strong>2.3.b.</strong> Diseñar y realizar experimentos guiados, cuando la investigación lo requiera, utilizando diferentes técnicas de indagación y modelos, empleando de forma segura los instrumentos y dispositivos apropiados, realizando observaciones y mediciones precisas y registrándolas correctamente.</li>
+                        <li><strong>2.4.b.</strong> Proponer posibles respuestas a las preguntas planteadas, a través del análisis e interpretación de la información y los resultados obtenidos, valorando la coherencia de las posibles soluciones, comparándolas con las predicciones realizadas.</li>
+                        <li><strong>2.5.b.</strong> Comunicar los resultados de las investigaciones adaptando el mensaje y el formato a la audiencia que va dirigido, utilizando lenguaje científico y explicando los pasos seguidos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Diseño y pensamiento computacional... <span class="kw-bold">PROYECTOS Y PROGRAMACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.b.</strong> Construir en equipo un producto final sencillo que dé solución a un problema de diseño, proponiendo posibles soluciones, probando diferentes prototipos y utilizando de forma segura las herramientas, técnicas y materiales adecuados.</li>
+                        <li><strong>3.2.b.</strong> Presentar el producto final de los proyectos de diseño en diferentes formatos y explicando los pasos seguidos.</li>
+                        <li><strong>3.3.b.</strong> Resolver, de forma guiada, problemas sencillos de programación, modificando algoritmos de acuerdo con los principios básicos del pensamiento computacional.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Bienestar emocional y hábitos saludables... <span class="kw-bold">SALUD Y ESTILOS DE VIDA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.b.</strong> Mostrar actitudes que fomenten el bienestar emocional y social, identificando las emociones propias y las de los demás, mostrando empatía y estableciendo relaciones afectivas saludables.</li>
+                        <li><strong>4.2.b.</strong> Identificar hábitos de vida saludables, partiendo del conocimiento y la localización y funciones de los aparatos y sistemas que intervienen en las funciones vitales de relación y nutrición, estableciendo relaciones entre ellos y valorando la importancia de una alimentación variada, equilibrada y sostenible, el ejercicio físico, el contacto con la naturaleza, el descanso y la higiene en la prevención de enfermedades y accidentes.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Comprensión del medio y patrimonio... <span class="kw-bold">MEDIO NATURAL, SOCIAL Y CULTURAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.b.</strong> Identificar las características, la organización y las propiedades de los elementos del medio natural, social y cultural, a través de metodologías de indagación, utilizando las herramientas y procesos adecuados, comprendiendo y valorando su riqueza y diversidad.</li>
+                        <li><strong>5.2.b.</strong> Identificar conexiones sencillas entre diferentes elementos del medio natural, social y cultural, mostrando comprensión de las relaciones que se establecen y de los cambios y adaptaciones protagonizadas por los seres vivos.</li>
+                        <li><strong>5.3.b.</strong> Valorar y proteger el patrimonio natural y cultural, considerándolo un bien común, adoptando conductas respetuosas para su disfrute y proponiendo acciones para su conservación y mejora.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Problemas ecosociales y sostenibilidad... <span class="kw-bold">ESTILOS DE VIDA SOSTENIBLE</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.b.</strong> Identificar problemas ecosociales, proponer posibles soluciones y poner en práctica estilos de vida sostenible, reconociendo comportamientos respetuosos de cuidado y protección del entorno y uso sostenible de los recursos naturales, expresando los cambios positivos y negativos causados en el medio por la acción humana.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Hechos históricos y sociedades... <span class="kw-bold">PREHISTORIA A EDAD ANTIGUA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.b.</strong> Identificar hechos del entorno social y cultural desde la Prehistoria hasta la Edad Antigua, su relevancia e impacto en Andalucía, empleando las nociones de causalidad, simultaneidad y sucesión, y contextualizando acontecimientos relevantes desde el punto de vista histórico.</li>
+                        <li><strong>7.2.b.</strong> Conocer personas, grupos sociales relevantes y formas de vida de las sociedades desde la Prehistoria hasta la Edad Antigua.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Bienestar, migración e igualdad... <span class="kw-bold">DIVERSIDAD E IGUALDAD</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.b.</strong> Contribuir al bienestar individual y colectivo de la sociedad, analizando la importancia demográfica, cultural y económica de las migraciones en la actualidad, valorando la diversidad cultural y la igualdad de género y mostrando empatía y respeto hacia las diferencias.</li>
+                        <li><strong>8.2.b.</strong> Valorar positivamente las acciones que fomentan la igualdad de género y las conductas no sexistas, reconociendo modelos positivos a lo largo de la historia.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Participación, normas y movilidad... <span class="kw-bold">DEMOCRACIA Y MOVILIDAD SEGURA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.b.</strong> Participar de forma eficaz y constructiva dentro de la comunidad escolar, realizando actividades que influyan en el bienestar colectivo, asumiendo responsabilidades, respetando las normas y explicando los derechos del niño y estableciendo acuerdos de forma dialogada y democrática, empleando un lenguaje inclusivo y no violento y la escucha activa.</li>
+                        <li><strong>9.2.b.</strong> Conocer los principales órganos de gobierno y funciones de diversas administraciones y servicios públicos del ámbito local y provincial, valorando la importancia de su gestión para la seguridad integral ciudadana y la participación democrática.</li>
+                        <li><strong>9.3.b.</strong> Conocer e interiorizar normas básicas para la convivencia en el uso de los espacios públicos como peatones y usuarios de los medios de locomoción, conociendo las señales de tráfico y tomando conciencia de la importancia de la movilidad segura, saludable y sostenible tanto para las personas como para el planeta.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 5º PRIMARIA -->
+    <div id="screen-medio-5p" class="screen">
+        <div class="top-bar">
+            <h2>Conocimiento del Medio - Criterios: 5º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-medio-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Recursos digitales y trabajo en red... <span class="kw-bold">RECURSOS DIGITALES Y EFICIENCIA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.a.</strong> Utilizar recursos digitales de acuerdo con las necesidades del contexto educativo de forma segura y adecuada, buscando información, comunicándose y trabajando de forma individual y en equipo, comenzando a realizar actividades en red, creando contenidos digitales sencillos, interpretando y organizando la información y aumentando la productividad y eficiencia en el propio trabajo.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Indagación y método científico... <span class="kw-bold">INVESTIGACIÓN Y EXPERIMENTACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.a.</strong> Demostrar y tratar de mantener la curiosidad sobre un tema relacionado con el medio natural, social o cultural propio de su entorno, formulando preguntas y realizando predicciones razonadas.</li>
+                        <li><strong>2.2.a.</strong> Buscar, seleccionar y comenzar a utilizar mecanismos para contrastar información, de diferentes fuentes seguras y fiables, iniciándose en el uso de los criterios de fiabilidad de fuentes, adquiriendo léxico científico básico, utilizándola en investigaciones relacionadas con el medio natural, social y cultural.</li>
+                        <li><strong>2.3.a.</strong> Iniciarse en el diseño y realizar experimentos guiados, cuando la investigación lo requiera, utilizando diferentes técnicas de indagación y modelos, empleando de forma segura los instrumentos y dispositivos adecuados, realizando observaciones y mediciones precisas y registrándolas correctamente.</li>
+                        <li><strong>2.4.a.</strong> Proponer posibles respuestas a las preguntas planteadas, iniciándose en el análisis e interpretación de la información y los resultados obtenidos, comenzando a tomar conciencia sobre el valor de la coherencia de las posibles soluciones, comparándolas con las predicciones realizadas.</li>
+                        <li><strong>2.5.a.</strong> Comunicar, siguiendo pautas, algunos de los resultados de las investigaciones, buscando la adaptación del mensaje y el formato a la audiencia que va dirigido, utilizando lenguaje científico y explicando los pasos seguidos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Proyectos de diseño y pensamiento computacional... <span class="kw-bold">DISEÑO Y PROTOTIPOS DIGITALES</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.a.</strong> Presentar problemas de diseño que se resuelvan con la creación de un prototipo o solución digital, iniciando la evaluación de las necesidades del entorno y estableciendo objetivos concretos.</li>
+                        <li><strong>3.2.a.</strong> Diseñar de forma guiada soluciones a los problemas planteados con técnicas sencillas de los proyectos de diseño y pensamiento computacional, mediante estrategias básicas de gestión de proyectos cooperativos, teniendo en cuenta los recursos necesarios.</li>
+                        <li><strong>3.3.a.</strong> Diseñar un producto final que dé solución a un problema de diseño, mediante estrategias cooperativas, como prototipos o soluciones digitales, utilizando de forma segura las herramientas, dispositivos, técnicas y materiales adecuados.</li>
+                        <li><strong>3.4.a.</strong> Presentar y comunicar el resultado de los proyectos de diseño, explicando los pasos seguidos, justificando por qué ese prototipo o solución digital cumple con los requisitos del proyecto y proponiendo posibles retos para futuros proyectos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Bienestar emocional y hábitos saludables... <span class="kw-bold">SALUD, NUTRICIÓN Y REPRODUCCIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.a.</strong> Reconocer actitudes y conductas que fomenten el bienestar emocional y social, identificando las emociones propias y respetando las de los demás, fomentando relaciones afectivas saludables basadas en la actividad física y la gestión del tiempo libre y usos de las tecnologías.</li>
+                        <li><strong>4.2.a.</strong> Valorar hábitos de vida saludables, partiendo del conocimiento y la localización y funciones de los aparatos y sistemas que intervienen en las funciones vitales de relación, nutrición y reproducción, estableciendo relaciones entre ellos y valorando la importancia de una alimentación variada, equilibrada y sostenible, el ejercicio físico, el contacto con la naturaleza, el descanso, la higiene, la prevención de enfermedades y accidentes, y el uso adecuado de las tecnologías.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Indagación y patrimonio... <span class="kw-bold">RELACIONES Y CONEXIONES EN EL MEDIO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.a.</strong> Identificar y describir las características, la organización y las propiedades de los elementos del medio natural, social y cultural a través de metodologías de indagación, utilizando las herramientas y procesos adecuados, comprendiendo y valorando su riqueza y diversidad.</li>
+                        <li><strong>5.2.a.</strong> Establecer conexiones sencillas entre diferentes elementos del medio natural, social y cultural, mostrando comprensión de las relaciones que se establecen, visibilizando los problemas que genera el uso del espacio y sus transformaciones, los cambios producidos por el ser humano y las distintas organizaciones sociales que se han desarrollado.</li>
+                        <li><strong>5.3.a.</strong> Valorar, proteger y mostrar actitudes de conservación y mejora del patrimonio natural y cultural a través de propuestas que reflejen compromisos y conductas en favor de la sostenibilidad.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Estilos de vida y actitud emprendedora... <span class="kw-bold">SOSTENIBILIDAD Y RETOS ECOSOCIALES</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.a.</strong> Identificar estilos de vida sostenible y consecuentes con el respeto, los cuidados y la protección de las personas y del planeta, a partir del análisis crítico de la intervención humana en el entorno.</li>
+                        <li><strong>6.2.a.</strong> Promover una actitud emprendedora en la búsqueda, contraste y evaluación de propuestas para afrontar problemas ecosociales, partiendo del análisis crítico de las causas y consecuencias de la intervención humana en el entorno.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Procesos históricos y perspectiva de género... <span class="kw-bold">EDAD MEDIA Y EDAD MODERNA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.a.</strong> Analizar relaciones de causalidad, simultaneidad y sucesión entre diferentes elementos del medio social y cultural de la Edad Media y la Edad Moderna, situando hechos en ejes cronológicos, para adoptar una actitud objetiva y analítica con respecto a la actualidad y para asumir un compromiso responsable y consciente con respecto a los retos del futuro.</li>
+                        <li><strong>7.2.a.</strong> Conocer personas, grupos sociales relevantes y formas de vida de las sociedades de la Edad Media y la Edad Moderna, incorporando la perspectiva de género, situándolas en ejes cronológicos e identificando rasgos significativos sociales en distintas épocas de la historia.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Diversidad cultural e igualdad de género... <span class="kw-bold">DIVERSIDAD ETNOCULTURAL Y AFECTIVOSEXUAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.a.</strong> Contribuir al bienestar individual y colectivo mediante el análisis comparativo de los procesos geográficos, históricos y culturales que han conformado algunos de los diferentes territorios y sociedades del mundo, valorando la diversidad etnocultural o afectivosexual, la cohesión social, y mostrando empatía y respeto por otras culturas y la igualdad de género.</li>
+                        <li><strong>8.2.a.</strong> Reconocer y respetar actitudes de igualdad de género y conductas no sexistas, contrastando diferentes modelos en nuestra sociedad y apreciando acciones contrarias a las actitudes discriminatorias.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Interacción respetuosa e instituciones... <span class="kw-bold">CONSTITUCIÓN Y ESTATUTO DE ANDALUCÍA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.a.</strong> Practicar una interacción respetuosa y equitativa, y resolver de forma pacífica y dialogada los conflictos, empleando un lenguaje inclusivo y no violento, así como la escucha activa, explicando y practicando las principales normas, derechos, deberes y libertades que forman parte de la Constitución española y el Estatuto de Autonomía de Andalucía.</li>
+                        <li><strong>9.2.a.</strong> Describir el funcionamiento general de los órganos de gobierno del municipio y de la Comunidad Autónoma de Andalucía, valorando sus funciones y la gestión de los servicios públicos para la ciudadanía.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 6º PRIMARIA -->
+    <div id="screen-medio-6p" class="screen">
+        <div class="top-bar">
+            <h2>Conocimiento del Medio - Criterios: 6º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-medio-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Utilizar recursos digitales de acuerdo con las necesidades del contexto educativo... <span class="kw-bold">MÉTODO CIENTÍFICO Y TIC</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.b.</strong> Utilizar recursos digitales de acuerdo con las necesidades del contexto educativo de forma segura y eficiente, buscando información, comunicándose y trabajando de forma individual, en equipo y en red, reelaborando y creando contenidos digitales sencillos, interpretando, organizando y analizando la información y aumentando la productividad y eficiencia en el propio trabajo.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Planteamiento, indagación y resolución de problemas... <span class="kw-bold">INDAGACIÓN Y EXPERIMENTACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.b.</strong> Demostrar y mantener la curiosidad sobre un tema relacionado con el medio natural, social o cultural específico, formulando preguntas y realizando predicciones razonadas.</li>
+                        <li><strong>2.2.b.</strong> Buscar, seleccionar y contrastar información, de diferentes fuentes seguras y fiables, usando los criterios de fiabilidad de fuentes, adquiriendo léxico científico básico, utilizándola en investigaciones relacionadas con el medio natural, social y cultural.</li>
+                        <li><strong>2.3.b.</strong> Diseñar y realizar experimentos guiados, cuando la investigación lo requiera, utilizando diferentes técnicas de indagación y modelos, empleando de forma segura los instrumentos y dispositivos apropiados, realizando observaciones y mediciones precisas y registrándolas correctamente.</li>
+                        <li><strong>2.4.b.</strong> Proponer posibles respuestas a las preguntas planteadas, a través del análisis e interpretación de la información y los resultados obtenidos, valorando la coherencia de las posibles soluciones, comparándolas con las predicciones realizadas.</li>
+                        <li><strong>2.5.b.</strong> Comunicar los resultados de las investigaciones adaptando el mensaje y el formato a la audiencia que va dirigido, utilizando lenguaje científico y explicando los pasos seguidos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Diseño de proyectos y prototipos tecnológicos... <span class="kw-bold">PROYECTOS Y PENSAMIENTO COMPUTACIONAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.b.</strong> Plantear problemas de diseño que se resuelvan con la creación de un prototipo o solución digital, evaluando necesidades del entorno y estableciendo objetivos concretos.</li>
+                        <li><strong>3.2.b.</strong> Diseñar posibles soluciones a los problemas planteados de acuerdo con técnicas sencillas de los proyectos de diseño y pensamiento computacional, mediante estrategias básicas de gestión de proyectos cooperativos, teniendo en cuenta los recursos necesarios y estableciendo criterios concretos para evaluar el proyecto.</li>
+                        <li><strong>3.3.b.</strong> Desarrollar un producto final que dé solución a un problema de diseño, probando en equipo, diferentes prototipos o soluciones digitales, utilizando de forma segura las herramientas, dispositivos, técnicas y materiales adecuados.</li>
+                        <li><strong>3.4.b.</strong> Comunicar el resultado de los proyectos de diseño, adaptando el mensaje y el formato a la audiencia, explicando los pasos seguidos, justificando por qué ese prototipo o solución digital cumple con los requisitos del proyecto y proponiendo posibles retos para futuros proyectos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Salud, bienestar y estilo de vida... <span class="kw-bold">SALUD Y HÁBITOS SALUDABLES</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.b.</strong> Promover actitudes que fomenten el bienestar emocional y social, gestionando las emociones propias y respetando las de los demás, validándolas, fomentando relaciones afectivas saludables y reflexionando ante los usos de las tecnologías y la gestión del tiempo libre.</li>
+                        <li><strong>4.2.b.</strong> Adoptar hábitos de vida saludables, partiendo del conocimiento y la localización, forma, estructura y funciones de los principales órganos, aparatos y sistemas que intervienen en las funciones vitales, estableciendo relación entre ellos, valorando la importancia de una alimentación variada, equilibrada y sostenible, el ejercicio físico, el contacto con la naturaleza, el descanso, la higiene, la prevención de enfermedades y accidentes, y el uso adecuado de las tecnologías.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Análisis del medio natural, social y cultural... <span class="kw-bold">INTERACCIONES EN EL MEDIO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.b.</strong> Identificar y analizar las características, la organización y las propiedades de los elementos del medio natural, social y cultural a través de metodologías de indagación, utilizando las herramientas y los procesos adecuados.</li>
+                        <li><strong>5.2.b.</strong> Establecer conexiones sencillas entre diferentes elementos del medio natural, social y cultural, mostrando comprensión de las relaciones que se establecen, visibilizando y proponiendo soluciones a los problemas que genera el uso del espacio y sus transformaciones, los cambios y adaptaciones producidos por el ser humano y las distintas organizaciones sociales que se han desarrollado.</li>
+                        <li><strong>5.3.b.</strong> Valorar, proteger y mostrar actitudes de conservación y mejora del patrimonio natural y cultural a través de propuestas y acciones que reflejen compromisos y conductas en favor de la sostenibilidad, respondiendo a retos naturales, sociales y culturales planteados.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Sostenibilidad y protección del planeta... <span class="kw-bold">ESTILOS DE VIDA SOSTENIBLES</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.b.</strong> Promover estilos de vida sostenible y consecuentes con el respeto, los cuidados y la protección de las personas y del planeta, a partir del análisis crítico de la intervención humana en el entorno, siendo conscientes de los límites de la biosfera, de los problemas asociados al consumo acelerado de bienes y al establecimiento de un modelo energético basado en los combustibles fósiles.</li>
+                        <li><strong>6.2.b.</strong> Promover una actitud emprendedora en la búsqueda, contraste y evaluación de propuestas para afrontar problemas ecosociales, buscar soluciones y actuar para su resolución, a partir del análisis crítico de las causas y consecuencias de la intervención humana en el entorno.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Procesos históricos y Edad Contemporánea... <span class="kw-bold">HISTORIA Y EDAD CONTEMPORÁNEA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.b.</strong> Analizar relaciones de causalidad, simultaneidad y sucesión entre diferentes elementos del medio social y cultural de la Edad Contemporánea, situando hechos en ejes cronológicos para adoptar una actitud objetiva y analítica con respecto a la actualidad y para asumir un compromiso responsable y consciente con respecto a los retos del futuro.</li>
+                        <li><strong>7.2.b.</strong> Conocer personas, grupos sociales relevantes y formas de vida de las sociedades en la Edad Contemporánea, situándolas en ejes cronológicos e identificando rasgos significativos sociales, económicos y culturales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Identidad, diversidad e integración europea... <span class="kw-bold">DIVERSIDAD E IGUALDAD DE GÉNERO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.b.</strong> Contribuir al bienestar individual y colectivo y al logro de los valores de la integración europea a través del conocimiento de los procesos geográficos, históricos y culturales que han conformado la sociedad actual, valorando la diversidad etnocultural, la cohesión social, y mostrando empatía y respeto por otras culturas y la igualdad de género.</li>
+                        <li><strong>8.2.b.</strong> Promover actitudes de igualdad de género y conductas no sexistas, analizando y contrastando diferentes modelos en nuestra sociedad y valorando acciones contrarias a las actitudes discriminatorias.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Convivencia, democracia e instituciones... <span class="kw-bold">CONVIVENCIA E INSTITUCIONES</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.b.</strong> Promover una interacción respetuosa y equitativa, y resolver de forma pacífica y dialogada los conflictos, empleando un lenguaje inclusivo y no violento, la escucha activa, y el pensamiento crítico y explicando y ejercitando las principales normas, derechos, deberes y libertades que forman parte de la Constitución española, el Estatuto de Autonomía de Andalucía y de la Unión Europea, conociendo la función que el Estado y sus instituciones desempeñan en el mantenimiento de la paz y la seguridad.</li>
+                        <li><strong>9.2.b.</strong> Explicar el funcionamiento general de los órganos de gobierno del municipio, de las comunidades autónomas, del Estado español y de la Unión Europea, valorando sus funciones y la gestión de los servicios públicos para la ciudadanía.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showScreen(screenId) {
+        // Oculta todas las pantallas
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(screen => {
+            screen.classList.remove('active');
+        });
+
+        // Muestra la pantalla seleccionada
+        const targetScreen = document.getElementById(screenId);
+        if (targetScreen) {
+            targetScreen.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>
