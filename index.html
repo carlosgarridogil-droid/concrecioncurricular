@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONCRECIÓN CURRICULAR - OPOSICIONES DE EDUCACIÓN PRIMARIA</title>
+    <!-- Fuentes modernas e infantiles-juveniles -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta en Tonos Verdes (Andalucía) */
+            --verde-oscuro: #1b4332;
+            --verde-principal: #2d6a4f;
+            --verde-medio: #40916c;
+            --verde-brillante: #52b788;
+            --verde-claro: #d8f3dc;
+            --verde-suave: #b7e4c7;
+            --sombra-marco: rgba(27, 67, 50, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Contenedor Principal con Marco Verde */
+        .contenedor-principal {
+            background-color: #ffffff;
+            border: 14px solid var(--verde-principal);
+            border-radius: 35px;
+            width: 100%;
+            max-width: 650px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px var(--sombra-marco);
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Encabezado y Títulos */
+        .titulo-principal {
+            color: var(--verde-principal);
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            line-height: 1.1;
+            text-shadow: 2px 2px 0px var(--verde-claro);
+        }
+
+        .subtitulo-1 {
+            color: var(--verde-medio);
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .subtitulo-2 {
+            color: #15803d;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            background-color: var(--verde-claro);
+            padding: 6px 24px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 30px;
+            border: 2px solid var(--verde-brillante);
+            letter-spacing: 1px;
+        }
+
+        /* Columna de Fichas centradas verticalmente */
+        .columna-fichas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        /* Tarjeta de Cada Área */
+        .tarjeta-ficha {
+            background: linear-gradient(145deg, #ffffff, var(--verde-claro));
+            border: 4px solid var(--verde-brillante);
+            border-radius: 22px;
+            padding: 16px 25px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 480px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 16px rgba(45, 106, 79, 0.15);
+        }
+
+        .tarjeta-ficha:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--verde-principal);
+            background: linear-gradient(145deg, var(--verde-claro), var(--verde-suave));
+            box-shadow: 0 12px 24px rgba(27, 67, 50, 0.25);
+        }
+
+        /* Iconos 3D Animados Grandes */
+        .icono-3d {
+            font-size: 3.2rem;
+            line-height: 1;
+            filter: drop-shadow(2px 4px 5px rgba(0, 0, 0, 0.2));
+            transition: transform 0.4s ease;
+            animation: flotar 3s ease-in-out infinite alternate;
+            width: 60px;
+            text-align: center;
+        }
+
+        @keyframes flotar {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-5px) rotate(3deg); }
+        }
+
+        .tarjeta-ficha:hover .icono-3d {
+            transform: scale(1.2) rotate(6deg);
+            animation-play-state: paused;
+        }
+
+        .titulo-area {
+            color: var(--verde-oscuro);
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            flex-grow: 1;
+            text-align: center;
+            padding: 0 10px;
+            line-height: 1.2;
+        }
+
+        .boton-abrir {
+            font-size: 0.85rem;
+            color: #ffffff;
+            background-color: var(--verde-principal);
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 14px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            white-space: nowrap;
+        }
+
+        .tarjeta-ficha:hover .boton-abrir {
+            background-color: var(--verde-oscuro);
+            transform: scale(1.05);
+        }
+
+        /* Créditos */
+        .creditos {
+            border-top: 2px dashed var(--verde-suave);
+            padding-top: 20px;
+            color: #475569;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .creditos strong {
+            color: var(--verde-oscuro);
+            font-weight: 800;
+        }
+
+        @media (max-width: 650px) {
+            .titulo-principal { font-size: 2rem; }
+            .subtitulo-1 { font-size: 1.1rem; }
+            .subtitulo-2 { font-size: 1rem; }
+            .contenedor-principal { border-width: 8px; padding: 25px 15px; }
+            .tarjeta-ficha { padding: 14px 15px; }
+            .icono-3d { font-size: 2.6rem; width: 45px; }
+            .titulo-area { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-principal">
+
+        <!-- Encabezado de la Pantalla Inicial -->
+        <h1 class="titulo-principal">CONCRECIÓN CURRICULAR</h1>
+        <div class="subtitulo-1">OPOSICIONES DE EDUCACIÓN PRIMARIA</div>
+        <div class="subtitulo-2">🟢 ANDALUCÍA ⚪</div>
+
+        <!-- Columna de Botones Centrados -->
+        <div class="columna-fichas">
+
+            <!-- Ficha 1: Conocimiento del Medio -->
+            <a href="CONOCIMIENTO.html" class="tarjeta-ficha" target="_blank">
+                <div class="icono-3d">🌿</div>
+                <div class="titulo-area">CONOCIMIENTO DEL MEDIO</div>
+                <span class="boton-abrir">Acceder ➔</span>
+            </a>
+
+            <!-- Ficha 2: Matemáticas -->
+            <a href="ÁREA DE MATEMÁTICAS.html" class="tarjeta-ficha" target="_blank">
+                <div class="icono-3d">📐</div>
+                <div class="titulo-area">MATEMÁTICAS</div>
+                <span class="boton-abrir">Acceder ➔</span>
+            </a>
+
+            <!-- Ficha 3: Educación Artística (Justo debajo de Matemáticas) -->
+            <a href="EDUCACIÓN ARTÍSTICA_PLÁSTICA.html" class="tarjeta-ficha" target="_blank">
+                <div class="icono-3d">🎨</div>
+                <div class="titulo-area">EDUCACIÓN ARTÍSTICA</div>
+                <span class="boton-abrir">Acceder ➔</span>
+            </a>
+
+            <!-- Ficha 4: Lengua Castellana -->
+            <a href="AREA DE LNGUA.html" class="tarjeta-ficha" target="_blank">
+                <div class="icono-3d">📚</div>
+                <div class="titulo-area">LENGUA CASTELLANA</div>
+                <span class="boton-abrir">Acceder ➔</span>
+            </a>
+
+        </div>
+
+        <!-- Créditos del pie de página -->
+        <div class="creditos">
+            Aplicación desarrollada por <strong>CARLOS GARRIDO</strong>
+        </div>
+
+    </div>
+
+</body>
+</html>

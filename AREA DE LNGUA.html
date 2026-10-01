@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competencias Específicas y Criterios - Lengua Castellana y Literatura</title>
+    <style>
+        :root {
+            --bg-corintio-light: #fdf2f2;
+            --corintio: #800020;         /* Color corintio / borgoña principal */
+            --corintio-light: #a31c3f;   /* Variante más clara para estados hover */
+            --corintio-dark: #4a0012;    /* Variante oscura */
+            --c-accion: #c2410c;         /* Naranja oscuro / Terracota para Acción */
+            --c-contenido: #047857;      /* Verde para Contenido / Contexto */
+            --c-finalidad: #1d4ed8;      /* Azul para Finalidad / Para qué */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-corintio-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Ventana principal con el borde de color corintio */
+        .window {
+            background-color: #ffffff;
+            border: 5px solid var(--corintio);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 680px;
+            box-shadow: 0 10px 25px rgba(128, 0, 32, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Vistas / Pantallas */
+        .screen {
+            display: none;
+            padding: 30px;
+            flex: 1;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pantalla Inicial */
+        #screen-home {
+            text-align: center;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            color: var(--corintio);
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .header-title h2 {
+            color: #475569;
+            font-size: 1.2rem;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .header-title h3 {
+            color: var(--corintio-light);
+            font-size: 1.1rem;
+            margin-top: 2px;
+            font-weight: 700;
+        }
+
+        /* Iconos 3D Animados (3 Iconos del área de Lengua) */
+        .icons-3d-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+            perspective: 1000px;
+        }
+
+        .icon-3d {
+            font-size: 80px;
+            display: inline-block;
+            transform-style: preserve-3d;
+            filter: drop-shadow(0 15px 10px rgba(128,0,32,0.3));
+            animation: float3d 4s ease-in-out infinite;
+        }
+
+        .icon-3d:nth-child(2) {
+            animation-delay: 1.3s;
+        }
+
+        .icon-3d:nth-child(3) {
+            animation-delay: 2.6s;
+        }
+
+        @keyframes float3d {
+            0%, 100% { 
+                transform: translateY(0) rotateY(0deg) rotateX(0deg); 
+            }
+            33% { 
+                transform: translateY(-18px) rotateY(15deg) rotateX(10deg); 
+            }
+            66% { 
+                transform: translateY(-8px) rotateY(-15deg) rotateX(-5deg); 
+            }
+        }
+
+        /* Botón de acceso directo */
+        .menu-buttons {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .btn-menu {
+            background-color: var(--corintio);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 10px rgba(128, 0, 32, 0.3);
+            width: 100%;
+        }
+
+        .btn-menu:hover {
+            background-color: var(--corintio-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(128, 0, 32, 0.4);
+        }
+
+        .footer-credits {
+            margin-top: 20px;
+            font-weight: 600;
+            color: var(--corintio);
+            font-size: 0.9rem;
+        }
+
+        /* Estilos Pantallas de Contenido */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #fecdd3;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .top-bar h2 {
+            color: var(--corintio);
+            font-size: 1.4rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action {
+            background-color: var(--corintio-light);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: var(--corintio);
+        }
+
+        .btn-back {
+            background-color: var(--corintio-dark);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-back:hover {
+            background-color: var(--corintio);
+        }
+
+        /* Leyenda de Colores */
+        .leyenda {
+            background-color: #fff1f2;
+            border: 1px solid #fecdd3;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            align-items: center;
+        }
+
+        .leyenda-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .txt-accion { color: var(--c-accion); font-weight: 600; }
+        .txt-contenido { color: var(--c-contenido); font-weight: 600; }
+        .txt-finalidad { color: var(--c-finalidad); font-weight: 600; }
+
+        .content-scroll {
+            overflow-y: auto;
+            max-height: 490px;
+            padding-right: 10px;
+        }
+
+        /* Tarjetas Estándar */
+        .comp-card {
+            background: #fff;
+            border: 1px solid #fecdd3;
+            border-left: 5px solid var(--corintio);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .comp-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .comp-card h4 {
+            color: var(--corintio);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        .tag-kw {
+            background-color: var(--corintio);
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .comp-literal {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #334155;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .comp-resumen {
+            color: var(--corintio-dark);
+            font-weight: bold;
+            background-color: #fff1f2;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--corintio-light);
+        }
+
+        /* Botones de Selección de Cursos */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .btn-course {
+            background-color: var(--corintio);
+            color: white;
+            border: none;
+            padding: 25px 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(128,0,32,0.2);
+        }
+
+        .btn-course:hover {
+            background-color: var(--corintio-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(128,0,32,0.3);
+        }
+
+        /* Vista Dos Columnas para Criterios */
+        .criterios-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background: #ffffff;
+            border: 1px solid #fecdd3;
+            border-left: 5px solid var(--corintio-light);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .criterios-col-left {
+            background-color: #fff1f2;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ffe4e6;
+        }
+
+        .criterios-col-right {
+            background-color: #f0fdf4;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #bbf7d0;
+        }
+
+        .criterios-col-left h4 {
+            color: var(--corintio);
+            font-size: 0.98rem;
+            margin-bottom: 6px;
+        }
+
+        .criterios-col-right h4 {
+            color: var(--c-contenido);
+            font-size: 0.98rem;
+            margin-bottom: 6px;
+        }
+
+        .crit-list {
+            list-style-type: none;
+        }
+
+        .crit-list li {
+            font-size: 0.9rem;
+            color: #1e293b;
+            margin-bottom: 8px;
+            padding-left: 12px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .crit-list li::before {
+            content: "•";
+            color: var(--c-contenido);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .kw-bold {
+            font-weight: 800;
+            color: var(--corintio);
+            background-color: #ffe4e6;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        /* Scrollbar styling */
+        .content-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .content-scroll::-webkit-scrollbar-track {
+            background: #fff1f2;
+        }
+        .content-scroll::-webkit-scrollbar-thumb {
+            background: #fecdd3;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="window">
+
+    <!-- PANTALLA PRINCIPAL -->
+    <div id="screen-home" class="screen active">
+        <div class="header-title">
+            <h1>COMPETENCIAS ESPECÍFICAS Y CRITERIOS</h1>
+            <h2>LENGUA CASTELLANA Y LITERATURA</h2>
+            <h3>EDUCACIÓN PRIMARIA - ANDALUCÍA</h3>
+        </div>
+
+        <!-- 3 ICONOS 3D ANIMADOS -->
+        <div class="icons-3d-container">
+            <div class="icon-3d" title="Lectura y Literatura">📚</div>
+            <div class="icon-3d" title="Escritura y Expresión">✍️</div>
+            <div class="icon-3d" title="Comunicación Oral">🗣️</div>
+        </div>
+
+        <div class="menu-buttons">
+            <button class="btn-menu" onclick="showScreen('screen-lengua')">LENGUA CASTELLANA Y LITERATURA</button>
+        </div>
+
+        <div class="footer-credits">
+            Aplicación adaptada para el Área de Lengua Castellana y Literatura
+        </div>
+    </div>
+
+    <!-- PANTALLA LENGUA CASTELLANA Y LITERATURA -->
+    <div id="screen-lengua" class="screen">
+        <div class="top-bar">
+            <h2>Lengua Castellana y Literatura</h2>
+            <div class="nav-actions">
+                <button class="btn-action" onclick="showScreen('screen-lengua-cursos')">CRITERIOS DE EVALUACIÓN</button>
+                <button class="btn-back" onclick="showScreen('screen-home')">Volver al Inicio</button>
+            </div>
+        </div>
+
+        <div class="leyenda">
+            <span><strong>Análisis Curricular:</strong></span>
+            <div class="leyenda-item"><span class="dot" style="background: var(--c-accion);"></span> <span class="txt-accion">Acción / Destreza</span></div>
+            <div class="leyenda-item"><span class="dot" style="background: var(--c-contenido);"></span> <span class="txt-contenido">Contenido / Contexto</span></div>
+            <div class="leyenda-item"><span class="dot" style="background: var(--c-finalidad);"></span> <span class="txt-finalidad">Finalidad / Aplicación</span></div>
+        </div>
+
+        <div class="content-scroll">
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 1</h4>
+                    <span class="tag-kw">Diversidad lingüística</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Reconocer la diversidad lingüística del mundo</span> <span class="txt-contenido">a partir de la identificación de las lenguas del alumnado y de la realidad plurilingüe y multicultural de España</span> <span class="txt-finalidad">para favorecer la reflexión interlingüística, rechazar estereotipos y valorar dicha diversidad como fuente de riqueza.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Valoración de la diversidad lingüística (Andalucía/España/Mundo) para evitar prejuicios y fomentar la reflexión interlingüística.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 2</h4>
+                    <span class="tag-kw">Comprensión oral</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Comprender e interpretar textos orales y multimodales,</span> <span class="txt-contenido">identificando el sentido general y la información más relevante,</span> <span class="txt-finalidad">para construir conocimiento y responder a diferentes necesidades comunicativas.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Comprensión oral y multimodal, extrayendo las ideas principales y valorando forma y fondo.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 3</h4>
+                    <span class="tag-kw">Expresión oral</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Producir textos orales y multimodales,</span> <span class="txt-contenido">con coherencia, claridad y registro adecuados,</span> <span class="txt-finalidad">para expresar ideas, construir conocimiento y participar con autonomía e interacción cooperativa.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Expresión e interacción oral coherente y adaptada, fomentando la empatía y la cooperación.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 4</h4>
+                    <span class="tag-kw">Comprensión lectora</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Comprender e interpretar textos escritos y multimodales,</span> <span class="txt-contenido">reconociendo el sentido global, las ideas principales e información explícita e implícita,</span> <span class="txt-finalidad">para adquirir conocimiento y responder a necesidades comunicativas.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Comprensión lectora activa e interpretación de textos escritos y multimodales.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 5</h4>
+                    <span class="tag-kw">Expresión escrita</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Producir textos escritos y multimodales,</span> <span class="txt-contenido">con corrección gramatical y ortográfica básicas, aplicando planificación, textualización, revisión y edición,</span> <span class="txt-finalidad">para dar respuesta a demandas comunicativas concretas.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Producción escrita guiada mediante fases (planificar, redactar, revisar y editar) con corrección ortográfica.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 6</h4>
+                    <span class="tag-kw">Búsqueda de información</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Buscar, seleccionar y contrastar información procedente de fuentes diversas,</span> <span class="txt-contenido">de forma planificada y evaluando su fiabilidad,</span> <span class="txt-finalidad">para transformarla en conocimiento y comunicarla respetando la propiedad intelectual.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Alfabetización informacional: búsqueda crítica, contraste de fuentes, prevención de la desinformación y respeto a la propiedad intelectual.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 7</h4>
+                    <span class="tag-kw">Lectura autónoma</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Leer de manera autónoma obras diversas</span> <span class="txt-contenido">seleccionadas atendiendo a sus gustos e intereses,</span> <span class="txt-finalidad">para iniciar la construcción de la identidad lectora y fomentar el gusto por la lectura como fuente de placer.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Fomento del hábito y gusto por la lectura autónoma y la construcción de la identidad lectora personal.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 8</h4>
+                    <span class="tag-kw">Educación literaria</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Leer, interpretar y analizar obras o fragmentos literarios,</span> <span class="txt-contenido">adecuados a su desarrollo e identificando géneros y convenciones,</span> <span class="txt-finalidad">para reconocer la literatura como manifestación artística y fuente de inspiración creativa.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Educación literaria, interpretación de géneros y recreación/creación de textos de intención artística.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 9</h4>
+                    <span class="tag-kw">Reflexión lingüística</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Reflexionar de forma guiada sobre el lenguaje</span> <span class="txt-contenido">a partir de procesos de producción y comprensión, utilizando terminología elemental,</span> <span class="txt-finalidad">para desarrollar la conciencia lingüística y mejorar las destrezas comunicativas.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Reflexión sobre la lengua (gramática/vocabulario) contextualizada para la mejora de la comprensión y producción.</div>
+            </div>
+
+            <div class="comp-card">
+                <div class="comp-header">
+                    <h4>Competencia Específica 10</h4>
+                    <span class="tag-kw">Uso ético comunicativo</span>
+                </div>
+                <div class="comp-literal">
+                    <span class="txt-accion">Poner las propias prácticas comunicativas al servicio de la convivencia,</span> <span class="txt-contenido">utilizando un lenguaje no discriminatorio y detectando abusos de poder a través de la palabra,</span> <span class="txt-finalidad">para favorecer un uso ético del lenguaje y la resolución pacífica de conflictos.</span>
+                </div>
+                <div class="comp-resumen">Resumen Oposiciones: Uso ético, inclusivo y democrático del lenguaje para la convivencia, la empatía y la erradicación de prejuicios.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA LENGUA - SELECCIÓN DE CURSOS -->
+    <div id="screen-lengua-cursos" class="screen">
+        <div class="top-bar">
+            <h2>Lengua Castellana y Literatura: Criterios por Curso</h2>
+            <button class="btn-back" onclick="showScreen('screen-lengua')">Volver a Lengua</button>
+        </div>
+
+        <div class="courses-grid">
+            <button class="btn-course" onclick="showScreen('screen-lengua-1p')">1º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-lengua-2p')">2º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-lengua-3p')">3º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-lengua-4p')">4º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-lengua-5p')">5º PRIMARIA</button>
+            <button class="btn-course" onclick="showScreen('screen-lengua-6p')">6º PRIMARIA</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA LENGUA - 1º PRIMARIA -->
+    <div id="screen-lengua-1p" class="screen">
+        <div class="top-bar">
+            <h2>Lengua Castellana y Literatura - Criterios: 1º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-lengua-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Reconocer la diversidad lingüística del mundo a partir de la identificación de las lenguas del alumnado... <span class="kw-bold">DIVERSIDAD LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.a.</strong> Mostrar interés y respeto por las distintas lenguas y variedades dialectales de su entorno más cercano, reconociendo las lenguas de signos.</li>
+                        <li><strong>1.2.a.</strong> Iniciar de manera acompañada el reconocimiento y en contextos próximos, de algunos prejuicios y estereotipos lingüísticos y culturales muy frecuentes, a partir de modelos dados.</li>
+                        <li><strong>1.3.a.</strong> Iniciarse en el reconocimiento de los rasgos de la modalidad lingüística y de las tradiciones literarias populares andaluzas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Comprender e interpretar textos orales y multimodales, identificando el sentido general... <span class="kw-bold">COMPRENSIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.a.</strong> Comprender el sentido de textos orales y multimodales sencillos, reconociendo las ideas principales y los mensajes explícitos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Producir textos orales y multimodales, con coherencia, claridad y registro adecuados... <span class="kw-bold">EXPRESIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.a.</strong> Producir textos orales y multimodales sencillos, con planificación acompañada a partir de modelos dados.</li>
+                        <li><strong>3.2.a.</strong> Participar en interacciones orales, a partir de modelos dados utilizando algunas normas básicas de la cortesía lingüística.</li>
+                        <li><strong>3.3.a.</strong> Reproducir textos orales sencillos de la literatura infantil andaluza del entorno cercano del alumnado.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Comprender e interpretar textos escritos y multimodales, reconociendo el sentido global... <span class="kw-bold">COMPRENSIÓN LECTORA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.a.</strong> Leer textos escritos y multimodales adecuados a su desarrollo cognitivo, identificando el sentido global y la información relevante y movilizando de forma acompañada estrategias básicas de comprensión, para adquirir conocimiento.</li>
+                        <li><strong>4.2.a.</strong> Identificar, de manera acompañada, el contenido y aspectos formales y no formales elementales de textos escritos y multimodales sencillos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Producir textos escritos y multimodales, con corrección gramatical y ortográfica básicas... <span class="kw-bold">EXPRESIÓN ESCRITA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.a.</strong> Producir textos escritos y multimodales sencillos y coherentes, desde las diferentes etapas del proceso evolutivo de la escritura, ajustándose a modelos dados.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Buscar, seleccionar y contrastar información procedente de fuentes diversas... <span class="kw-bold">BÚSQUEDA DE INFORMACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.a.</strong> Iniciarse en la búsqueda de resultados de un proceso de investigación sencillo, individual o grupal, sobre algún tema de interés personal, realizado de manera acompañada, que implique la localización y selección de información de dos o más fuentes, atendiendo a modelos, incluidas las digitales.</li>
+                        <li><strong>6.2.a.</strong> Compartir los resultados de un proceso de investigación sencillo, individual o grupal, sobre algún tema de interés personal orientado y realizado de manera acompañada.</li>
+                        <li><strong>6.3.a.</strong> Iniciarse de manera acompañada en el uso, seguro y saludable de las tecnologías digitales en relación con la búsqueda de la información.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Leer de manera autónoma obras diversas seleccionadas atendiendo a sus gustos e intereses... <span class="kw-bold">LECTURA AUTÓNOMA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.a.</strong> Iniciarse en la lectura de textos de distintos autores y autoras acordes con sus gustos e intereses, seleccionados de manera acompañada, desde las diferentes etapas del proceso evolutivo de la lectura.</li>
+                        <li><strong>7.2.a.</strong> Compartir oralmente la experiencia de lectura iniciándose en la participación en comunidades lectoras de ámbito escolar para conseguir disfrutar de la dimensión social de la lectura.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Leer, interpretar y analizar obras o fragmentos literarios adecuados a su desarrollo... <span class="kw-bold">EDUCACIÓN LITERARIA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.a.</strong> Escuchar e iniciar la lectura de textos orales y escritos de la literatura infantil, que recojan diversidad de autores y autoras, estableciendo de manera acompañada relaciones elementales entre ellos y con otras manifestaciones artísticas o culturales.</li>
+                        <li><strong>8.2.a.</strong> Reproducir, de manera acompañada, textos sencillos individuales o colectivos con intención literaria, adaptados a las diferentes etapas del proceso evolutivo de la escritura, a partir de modelos dados y en distintos soportes.</li>
+                        <li><strong>8.3.a.</strong> Conocer pequeños textos literarios como las retahílas tradicionales andaluzas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Reflexionar de forma guiada sobre el lenguaje a partir de procesos de producción y comprensión... <span class="kw-bold">REFLEXIÓN LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.a.</strong> Iniciarse en la reflexión sobre el funcionamiento de la lengua, prestando especial atención a la concordancia y a las relaciones de significado entre las palabras, a partir de la observación, comparación y manipulación de palabras, en un proceso acompañado de comprensión de textos en contextos significativos.</li>
+                        <li><strong>9.2.a.</strong> Revisar los textos propios y subsanar algunos problemas de comprensión lectora, de manera acompañada, usando la terminología lingüística básica adecuada.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 10</h4>
+                    <p class="comp-literal">Poner las propias prácticas comunicativas al servicio de la convivencia... <span class="kw-bold">USO ÉTICO COMUNICATIVO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (1.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>10.1.a.</strong> Identificar los usos lingüísticos discriminatorios identificados a partir de la reflexión grupal acompañada sobre los aspectos elementales, verbales, de la comunicación, teniendo en cuenta una perspectiva de género.</li>
+                        <li><strong>10.2.a.</strong> Identificar, con la planificación y el acompañamiento necesarios, estrategias elementales para la escucha activa y el consenso, iniciándose en la gestión dialogada de conflictos.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA LENGUA - 2º PRIMARIA -->
+    <div id="screen-lengua-2p" class="screen">
+        <div class="top-bar">
+            <h2>Lengua Castellana y Literatura - Criterios de Evaluación: 2º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-lengua-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Reconocer la diversidad lingüística del mundo a partir de la identificación de las lenguas del alumnado... <span class="kw-bold">DIVERSIDAD LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.b.</strong> Mostrar interés y respeto a las distintas lenguas y variedades dialectales de su entorno, valorando la igualdad en las diferencias.</li>
+                        <li><strong>1.2.b.</strong> Reconocer, de manera acompañada y en contextos próximos, algunos prejuicios y estereotipos lingüísticos y culturales muy frecuentes.</li>
+                        <li><strong>1.3.b.</strong> Reconocer rasgos de la modalidad lingüística y de las tradiciones literarias populares andaluzas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Comprender e interpretar textos orales y multimodales, identificando el sentido general... <span class="kw-bold">COMPRENSIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.b.</strong> Comprender el sentido de textos orales y multimodales sencillos, reconociendo las ideas principales y los mensajes explícitos más sencillos, e iniciando, de manera acompañada, la valoración del contenido y de los elementos no verbales más elementales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Producir textos orales y multimodales, con coherencia, claridad y registro adecuados... <span class="kw-bold">EXPRESIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.b.</strong> Producir textos orales y multimodales coherentes, con planificación acompañada y utilizando recursos no verbales elementales.</li>
+                        <li><strong>3.2.b.</strong> Participar en interacciones orales espontáneas, incorporando estrategias elementales de escucha activa y de cortesía lingüística.</li>
+                        <li><strong>3.3.b.</strong> Reproducir textos orales sencillos de la literatura infantil andaluza.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Comprender e interpretar textos escritos y multimodales, reconociendo el sentido global... <span class="kw-bold">COMPRENSIÓN LECTORA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.b.</strong> Comprender el sentido global y la información relevante de textos cercanos, escritos y multimodales, a partir de estrategias básicas de comprensión antes, durante y después de la lectura.</li>
+                        <li><strong>4.2.b.</strong> Analizar, de manera acompañada, el contenido y aspectos formales y no formales elementales de textos escritos y multimodales, valorando su contenido y estructura.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Producir textos escritos y multimodales, con corrección gramatical y ortográfica básicas... <span class="kw-bold">EXPRESIÓN ESCRITA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.b.</strong> Producir textos escritos y multimodales sencillos y coherentes, desde las diferentes etapas del proceso evolutivo de la escritura, ajustándose a modelos dados y movilizando, de manera acompañada, estrategias elementales, individuales o grupales, de planificación, textualización y revisión.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Buscar, seleccionar y contrastar información procedente de fuentes diversas... <span class="kw-bold">BÚSQUEDA DE INFORMACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.b.</strong> Localizar, seleccionar y contrastar información de diferentes fuentes, incluidas las digitales, citándolas y recreándolas mediante la adaptación creativa de modelos dados.</li>
+                        <li><strong>6.2.b.</strong> Compartir los resultados de un proceso de investigación sencillo, individual o grupal, sobre algún tema de interés personal realizado de manera acompañada.</li>
+                        <li><strong>6.3.b.</strong> Adoptar hábitos de uso crítico, seguro, sostenible y saludable en las tecnologías digitales en relación con la búsqueda y la comunicación de la información.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Leer de manera autónoma obras diversas seleccionadas atendiendo a sus gustos e intereses... <span class="kw-bold">LECTURA AUTÓNOMA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.b.</strong> Leer con progresiva autonomía textos de distintos autores y autoras acordes con sus gustos e intereses, seleccionados de manera acompañada, desde las diferentes etapas del proceso evolutivo de la lectura.</li>
+                        <li><strong>7.2.b.</strong> Compartir oralmente la experiencia y disfrute por la lectura iniciándose en la participación en comunidades lectoras de ámbito escolar.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Leer, interpretar y analizar obras o fragmentos literarios adecuados a su desarrollo... <span class="kw-bold">EDUCACIÓN LITERARIA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.b.</strong> Escuchar y leer de manera acompañada textos orales y escritos de la literatura infantil, que recojan diversidad de autores y autoras, estableciendo de manera acompañada relaciones elementales entre ellos y con otras manifestaciones artísticas o culturales.</li>
+                        <li><strong>8.2.b.</strong> Producir, de manera acompañada, textos sencillos individuales o colectivos con intención literaria, adaptados a las diferentes etapas del proceso evolutivo de la escritura, ajustándose a modelos dados, en distintos soportes y complementándolos con otros lenguajes artísticos.</li>
+                        <li><strong>8.3.b.</strong> Conocer e interpretar pequeños textos literarios a partir de modelos dados como las retahílas tradicionales andaluzas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Reflexionar de forma guiada sobre el lenguaje a partir de procesos de producción y comprensión... <span class="kw-bold">REFLEXIÓN LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.b.</strong> Formular conclusiones elementales sobre el funcionamiento de la lengua, prestando especial atención a la concordancia y a las relaciones de significado entre las palabras, a partir de la observación, comparación y transformación de palabras y enunciados, en un proceso acompañado de comprensión de textos en contextos significativos.</li>
+                        <li><strong>9.2.b.</strong> Revisar y mejorar los textos propios y subsanar algunos problemas de comprensión lectora, de manera acompañada, a partir de la reflexión metalingüística e interlingüística y usando la terminología lingüística básica adecuada.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 10</h4>
+                    <p class="comp-literal">Poner las propias prácticas comunicativas al servicio de la convivencia... <span class="kw-bold">USO ÉTICO COMUNICATIVO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (2.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>10.1.b.</strong> Rechazar los usos lingüísticos discriminatorios identificados a partir de la reflexión grupal acompañada sobre los aspectos elementales, verbales y no verbales de la comunicación, teniendo en cuenta una perspectiva de género.</li>
+                        <li><strong>10.2.b.</strong> Movilizar con la planificación y el acompañamiento necesarios, estrategias elementales para la escucha activa y el consenso, iniciándose en la gestión dialogada de conflictos.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA LENGUA - 3º PRIMARIA -->
+    <div id="screen-lengua-3p" class="screen">
+        <div class="top-bar">
+            <h2>Lengua Castellana y Literatura - Criterios de Evaluación: 3º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-lengua-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Reconocer la diversidad lingüística del mundo a partir de la identificación de las lenguas del alumnado... <span class="kw-bold">DIVERSIDAD LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.a.</strong> Mostrar interés y respeto por las distintas lenguas y variedades dialectales de su entorno, incluidas las lenguas de signos, identificando algunas palabras sencillas de uso cotidiano.</li>
+                        <li><strong>1.2.a.</strong> Identificar en contextos próximos, a partir de modelos dados, prejuicios y estereotipos lingüísticos frecuentes, reconociendo la pluralidad lingüística de su entorno como una fuente de riqueza cultural.</li>
+                        <li><strong>1.3.a.</strong> Identificar y reconocer de manera acompañada las variedades del dialecto andaluz.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Comprender e interpretar textos orales y multimodales, identificando el sentido general... <span class="kw-bold">COMPRENSIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.a.</strong> Comprender el sentido de textos orales y multimodales sencillos, reconociendo las ideas principales, los mensajes explícitos y los mensajes implícitos más sencillos, iniciando, de manera acompañada, la valoración crítica del contenido y de los elementos no verbales elementales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Producir textos orales y multimodales, con coherencia, claridad y registro adecuados... <span class="kw-bold">EXPRESIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.a.</strong> Producir textos orales y multimodales coherentes, con planificación acompañada y a partir de modelos dados, ajustando el discurso a la situación comunicativa y utilizando recursos no verbales básicos.</li>
+                        <li><strong>3.2.a.</strong> Participar en interacciones orales espontáneas, respetando las normas básicas de la cortesía lingüística e iniciándose en estrategias de escucha activa.</li>
+                        <li><strong>3.3.a.</strong> Conocer y producir textos orales y multimodales sencillos con planificación acompañada, propios de la literatura infantil andaluza, a partir de modelos dados.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Comprender e interpretar textos escritos y multimodales, reconociendo el sentido global... <span class="kw-bold">COMPRENSIÓN LECTORA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.a.</strong> Comprender el sentido global y la información relevante de textos escritos y multimodales de mediana complejidad, aplicando estrategias básicas de comprensión antes, durante y después de la lectura.</li>
+                        <li><strong>4.2.a.</strong> Valorar de forma acompañada el contenido y aspectos formales de textos escritos y multimodales sencillos, expresando opiniones razonadas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Producir textos escritos y multimodales, con corrección gramatical y ortográfica básicas... <span class="kw-bold">EXPRESIÓN ESCRITA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.a.</strong> Producir textos escritos y multimodales sencillos, utilizando estrategias básicas de planificación, redacción y revisión con apoyo de pautas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Buscar, seleccionar y contrastar información procedente de fuentes diversas... <span class="kw-bold">BÚSQUEDA DE INFORMACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.a.</strong> Buscar y seleccionar información guiada en fuentes analógicas y digitales sencillas, integrándola de forma organizada.</li>
+                        <li><strong>6.2.a.</strong> Comunicar los resultados de investigaciones sencillas utilizando diferentes formatos y respetando reglas básicas de autoría.</li>
+                        <li><strong>6.3.a.</strong> Aplicar pautas básicas de seguridad y uso responsable en entornos digitales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Leer de manera autónoma obras diversas seleccionadas atendiendo a sus gustos e intereses... <span class="kw-bold">LECTURA AUTÓNOMA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.a.</strong> Leer de forma progresivamente autónoma obras diversas, mostrando interés por ampliar sus preferencias lectoras.</li>
+                        <li><strong>7.2.a.</strong> Compartir impresiones y valoraciones sobre las lecturas realizadas en actividades grupales o de aula.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Leer, interpretar y analizar obras o fragmentos literarios adecuados a su desarrollo... <span class="kw-bold">EDUCACIÓN LITERARIA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.a.</strong> Leer e interpretar obras o fragmentos sencillos de la literatura infantil, identificando elementos característicos básicos.</li>
+                        <li><strong>8.2.a.</strong> Crear y recrear textos sencillos con intención literaria, utilizando recursos expresivos elementales.</li>
+                        <li><strong>8.3.a.</strong> Conocer y valorar expresiones literarias populares de la tradición andaluza.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Reflexionar de forma guiada sobre el lenguaje a partir de procesos de producción y comprensión... <span class="kw-bold">REFLEXIÓN LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.a.</strong> Observar y reflexionar de forma guiada sobre aspectos lingüísticos y gramaticales básicos para mejorar la propia producción.</li>
+                        <li><strong>9.2.a.</strong> Utilizar terminología lingüística elemental para revisar y corregir textos de forma colaborativa o guiada.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 10</h4>
+                    <p class="comp-literal">Poner las propias prácticas comunicativas al servicio de la convivencia... <span class="kw-bold">USO ÉTICO COMUNICATIVO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (3.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>10.1.a.</strong> Utilizar un lenguaje respetuoso e inclusivo, identificando de forma guiada expresiones que vulneren la convivencia.</li>
+                        <li><strong>10.2.a.</strong> Participar en la resolución dialogada de conflictos sencillos mediante la escucha activa y la expresión asertiva.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA LENGUA - 4º PRIMARIA -->
+    <div id="screen-lengua-4p" class="screen">
+        <div class="top-bar">
+            <h2>Lengua Castellana y Literatura - Criterios de Evaluación: 4º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-lengua-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Reconocer la diversidad lingüística del mundo a partir de la identificación de las lenguas del alumnado... <span class="kw-bold">DIVERSIDAD LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.b.</strong> Reconocer la diversidad lingüística de su entorno y de España, mostrando interés y respeto por sus manifestaciones.</li>
+                        <li><strong>1.2.b.</strong> Identificar y rechazar prejuicios o estereotipos lingüísticos sencillos en su entorno habitual.</li>
+                        <li><strong>1.3.b.</strong> Valorar las particularidades y la riqueza de la modalidad lingüística andaluza.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Comprender e interpretar textos orales y multimodales, identificando el sentido general... <span class="kw-bold">COMPRENSIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.b.</strong> Interpretar textos orales y multimodales cotidianos, identificando la idea principal, datos relevantes y la intención del emisor.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Producir textos orales y multimodales, con coherencia, claridad y registro adecuados... <span class="kw-bold">EXPRESIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.b.</strong> Realizar exposiciones orales sencillas y bien estructuradas, apoyándose en recursos multimodales o notas previas.</li>
+                        <li><strong>3.2.b.</strong> Participar activamente en debates y conversaciones de aula respetando los turnos de palabra y las aportaciones ajenas.</li>
+                        <li><strong>3.3.b.</strong> Expresar y comunicar textos orales representativos de la cultura y tradición andaluza.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Comprender e interpretar textos escritos y multimodales, reconociendo el sentido global... <span class="kw-bold">COMPRENSIÓN LECTORA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.b.</strong> Comprender el sentido de textos escritos de diversos tipos, realizando inferencias sencillas y extrayendo conclusiones.</li>
+                        <li><strong>4.2.b.</strong> Analizar la estructura básica y el propósito comunicativo de textos escritos y multimodales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Producir textos escritos y multimodales, con corrección gramatical y ortográfica básicas... <span class="kw-bold">EXPRESIÓN ESCRITA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.b.</strong> Escribir textos claros y estructurados, aplicando las normas ortográficas y gramaticales trabajadas y revisando el producto final.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Buscar, seleccionar y contrastar información procedente de fuentes diversas... <span class="kw-bold">BÚSQUEDA DE INFORMACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.b.</strong> Buscar y seleccionar información relevante en diversas fuentes, comprobando su sencillez y fiabilidad.</li>
+                        <li><strong>6.2.b.</strong> Sintetizar y comunicar la información obtenida organizando las ideas en esquemas o resúmenes.</li>
+                        <li><strong>6.3.b.</strong> Hacer uso adecuado de entornos digitales respetando normas de convivencia digital.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Leer de manera autónoma obras diversas seleccionadas atendiendo a sus gustos e intereses... <span class="kw-bold">LECTURA AUTÓNOMA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.b.</strong> Mantener un hábito lector autónomo, seleccionando obras con criterio propio y variando tipologías textuales.</li>
+                        <li><strong>7.2.b.</strong> Participar en actividades de promoción de la lectura compartiendo recomendaciones argumentadas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Leer, interpretar y analizar obras o fragmentos literarios adecuados a su desarrollo... <span class="kw-bold">EDUCACIÓN LITERARIA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.b.</strong> Comprender e interpretar textos literarios infantiles, relacionando contenido y forma.</li>
+                        <li><strong>8.2.b.</strong> Redactar textos propios inspirados en modelos literarios trabajados en el aula.</li>
+                        <li><strong>8.3.b.</strong> Disfrutar y valorar el patrimonio literario andaluz adaptado a su edad.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Reflexionar de forma guiada sobre el lenguaje a partir de procesos de producción y comprensión... <span class="kw-bold">REFLEXIÓN LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.b.</strong> Identificar las categorías gramaticales principales y utilizarlas para corregir y mejorar producciones propias.</li>
+                        <li><strong>9.2.b.</strong> Aplicar conocimientos lingüísticos de forma autónoma durante la revisión de escritos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 10</h4>
+                    <p class="comp-literal">Poner las propias prácticas comunicativas al servicio de la convivencia... <span class="kw-bold">USO ÉTICO COMUNICATIVO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (4.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>10.1.b.</strong> Promover el uso de un lenguaje inclusivo y respetuoso, evitando cualquier tipo de prejuicio verbal.</li>
+                        <li><strong>10.2.b.</strong> Resolver disputas e interactuar mediante el diálogo reflexivo y la empatía comunicativa.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA LENGUA - 5º PRIMARIA -->
+    <div id="screen-lengua-5p" class="screen">
+        <div class="top-bar">
+            <h2>Lengua Castellana y Literatura - Criterios de Evaluación: 5º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-lengua-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Reconocer la diversidad lingüística del mundo a partir de la identificación de las lenguas del alumnado... <span class="kw-bold">DIVERSIDAD LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.a.</strong> Analizar la diversidad lingüística de España y del mundo, rechazando cualquier juicio de valor discriminatorio.</li>
+                        <li><strong>1.2.a.</strong> Identificar y argumentar críticamente contra estereotipos lingüísticos de género o procedencia.</li>
+                        <li><strong>1.3.a.</strong> Valorar la riqueza del dialecto andaluz y su presencia en la literatura y cultura contemporánea.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Comprender e interpretar textos orales y multimodales, identificando el sentido general... <span class="kw-bold">COMPRENSIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.a.</strong> Extraer información implícita y explícita de discursos orales y multimodales complejos evaluando su intencionalidad.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Producir textos orales y multimodales, con coherencia, claridad y registro adecuados... <span class="kw-bold">EXPRESIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.a.</strong> Planificar y realizar exposiciones orales formales utilizando recursos audiovisuales y lenguaje preciso.</li>
+                        <li><strong>3.2.a.</strong> Intervenir de forma asertiva y respetuosa en debates regulados, argumentando opiniones con coherencia.</li>
+                        <li><strong>3.3.a.</strong> Recrear y comunicar producciones orales relevantes del repertorio literario andaluz.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Comprender e interpretar textos escritos y multimodales, reconociendo el sentido global... <span class="kw-bold">COMPRENSIÓN LECTORA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.a.</strong> Interpretar textos de cierta complejidad, infiriendo contenidos, sentido figurado y postura del autor.</li>
+                        <li><strong>4.2.a.</strong> Evaluar la veracidad y el formato de textos informativos e instruccionales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Producir textos escritos y multimodales, con corrección gramatical y ortográfica básicas... <span class="kw-bold">EXPRESIÓN ESCRITA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.a.</strong> Redactar textos expositivos, narrativos o argumentativos aplicando procesos rigurosos de planificación, borrador y edición final.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Buscar, seleccionar y contrastar información procedente de fuentes diversas... <span class="kw-bold">BÚSQUEDA DE INFORMACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.a.</strong> Buscar, contrastar y seleccionar información de diversas fuentes verificando su fiabilidad.</li>
+                        <li><strong>6.2.a.</strong> Elaborar informes o presentaciones grupales citando adecuadamente las fuentes utilizadas.</li>
+                        <li><strong>6.3.a.</strong> Hacer un uso ético, crítico y seguro de la red y herramientas de comunicación digital.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Leer de manera autónoma obras diversas seleccionadas atendiendo a sus gustos e intereses... <span class="kw-bold">LECTURA AUTÓNOMA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.a.</strong> Leer de forma habitual y autónoma géneros variados, consolidando una identidad lectora propia.</li>
+                        <li><strong>7.2.a.</strong> Participar en clubes de lectura o tertulias literarias escolares compartiendo análisis personales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Leer, interpretar y analizar obras o fragmentos literarios adecuados a su desarrollo... <span class="kw-bold">EDUCACIÓN LITERARIA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.a.</strong> Analizar e interpretar fragmentos literarios identificando recursos estilísticos y características de género.</li>
+                        <li><strong>8.2.a.</strong> Crear textos de intencionalidad artística empleando figuras literarias sencillas.</li>
+                        <li><strong>8.3.a.</strong> Conocer y apreciar autores y obras destacadas de la literatura andaluza.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Reflexionar de forma guiada sobre el lenguaje a partir de procesos de producción y comprensión... <span class="kw-bold">REFLEXIÓN LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.a.</strong> Analizar la estructura de las oraciones y relaciones semánticas para enriquecer la propia redacción.</li>
+                        <li><strong>9.2.a.</strong> Emplear diccionarios y gramáticas para resolver dudas y perfeccionar textos escritos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 10</h4>
+                    <p class="comp-literal">Poner las propias prácticas comunicativas al servicio de la convivencia... <span class="kw-bold">USO ÉTICO COMUNICATIVO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (5.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>10.1.a.</strong> Detectar prejuicios y expresiones de sesgo o discriminación en textos reales y corregirlos activamente.</li>
+                        <li><strong>10.2.a.</strong> Utilizar la palabra dialogada como vía prioritaria para la mediación y el entendimiento mutuo.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA LENGUA - 6º PRIMARIA -->
+    <div id="screen-lengua-6p" class="screen">
+        <div class="top-bar">
+            <h2>Lengua Castellana y Literatura - Criterios de Evaluación: 6º PRIMARIA</h2>
+            <button class="btn-back" onclick="showScreen('screen-lengua-cursos')">Volver a Cursos</button>
+        </div>
+
+        <div class="content-scroll">
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 1</h4>
+                    <p class="comp-literal">Reconocer la diversidad lingüística del mundo a partir de la identificación de las lenguas del alumnado... <span class="kw-bold">DIVERSIDAD LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>1.1.b.</strong> Reconocer la riqueza lingüística de España y del mundo con una actitud abierta y libre de prejuicios.</li>
+                        <li><strong>1.2.b.</strong> Argumentar contra prejuicios lingüísticos o sociolectales valorando la diversidad cultural.</li>
+                        <li><strong>1.3.b.</strong> Identificar, valorar y difundir las características propias de la modalidad lingüística andaluza.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 2</h4>
+                    <p class="comp-literal">Comprender e interpretar textos orales y multimodales, identificando el sentido general... <span class="kw-bold">COMPRENSIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>2.1.b.</strong> Evaluar de forma crítica discursos orales e informativos valorando la coherencia, adecuación y tono empleado.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 3</h4>
+                    <p class="comp-literal">Producir textos orales y multimodales, con coherencia, claridad y registro adecuados... <span class="kw-bold">EXPRESIÓN ORAL</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>3.1.b.</strong> Exponer con soltura, rigor y fluidez temas trabajados, adaptándose al nivel del auditorio.</li>
+                        <li><strong>3.2.b.</strong> Participar en debates respetando las reglas de la discusión respetuosa y buscando acuerdos compartidos.</li>
+                        <li><strong>3.3.b.</strong> Interpretar oralmente obras y piezas líricas o narrativas del patrimonio literario andaluz.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 4</h4>
+                    <p class="comp-literal">Comprender e interpretar textos escritos y multimodales, reconociendo el sentido global... <span class="kw-bold">COMPRENSIÓN LECTORA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>4.1.b.</strong> Analizar de forma autónoma textos de diversa índole infiriendo tesis, subtextos y propósitos implícitos.</li>
+                        <li><strong>4.2.b.</strong> Enjuiciar de forma crítica la estructura, recursos y veracidad de las producciones escritas analizadas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 5</h4>
+                    <p class="comp-literal">Producir textos escritos y multimodales, con corrección gramatical y ortográfica básicas... <span class="kw-bold">EXPRESIÓN ESCRITA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>5.1.b.</strong> Producir textos complejos y bien cohesionados, con corrección gramatical, sintáctica y ortográfica.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 6</h4>
+                    <p class="comp-literal">Buscar, seleccionar y contrastar información procedente de fuentes diversas... <span class="kw-bold">BÚSQUEDA DE INFORMACIÓN</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>6.1.b.</strong> Seleccionar y sintetizar información compleja contrastando la objetividad y veracidad de fuentes digitales y analógicas.</li>
+                        <li><strong>6.2.b.</strong> Elaborar proyectos de investigación bien estructurados respetando la propiedad intelectual y los derechos de autor.</li>
+                        <li><strong>6.3.b.</strong> Demostrar autonomía y responsabilidad en la búsqueda, comunicación y creación en entornos digitales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 7</h4>
+                    <p class="comp-literal">Leer de manera autónoma obras diversas seleccionadas atendiendo a sus gustos e intereses... <span class="kw-bold">LECTURA AUTÓNOMA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>7.1.b.</strong> Disfrutar de la lectura autónoma como hábito permanente de ocio y fuente continua de aprendizaje.</li>
+                        <li><strong>7.2.b.</strong> Recomendar y debatir lecturas con espíritu crítico e interactuar en redes o comunidades lectoras escolares.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 8</h4>
+                    <p class="comp-literal">Leer, interpretar y analizar obras o fragmentos literarios adecuados a su desarrollo... <span class="kw-bold">EDUCACIÓN LITERARIA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>8.1.b.</strong> Relacionar obras literarias con sus contextos histórico-culturales reconociendo temas recurrentes.</li>
+                        <li><strong>8.2.b.</strong> Recrear y escribir producciones literarias originales utilizando diversos recursos estilísticos y géneros.</li>
+                        <li><strong>8.3.b.</strong> Valorar y difundir el patrimonio literario andaluz dentro y fuera del aula.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 9</h4>
+                    <p class="comp-literal">Reflexionar de forma guiada sobre el lenguaje a partir de procesos de producción y comprensión... <span class="kw-bold">REFLEXIÓN LINGÜÍSTICA</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>9.1.b.</strong> Dominar la terminología gramatical básica para explicar el funcionamiento sintáctico y semántico de la lengua.</li>
+                        <li><strong>9.2.b.</strong> Autocregir y revisar los propios escritos garantizando cohesión, coherencia y adecuación.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="criterios-row">
+                <div class="criterios-col-left">
+                    <h4>Competencia Específica 10</h4>
+                    <p class="comp-literal">Poner las propias prácticas comunicativas al servicio de la convivencia... <span class="kw-bold">USO ÉTICO COMUNICATIVO</span></p>
+                </div>
+                <div class="criterios-col-right">
+                    <h4>Criterios de Evaluación (6.º Primaria)</h4>
+                    <ul class="crit-list">
+                        <li><strong>10.1.b.</strong> Usar el lenguaje de forma plenamente democrática, no sexista, respetuosa e inclusiva en cualquier ámbito comunicativo.</li>
+                        <li><strong>10.2.b.</strong> Aplicar destrezas avanzadas de negociación oral para la mediación pacífica y la resolución democrática de conflictos.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showScreen(screenId) {
+        // Ocultar todas las pantallas
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(screen => {
+            screen.classList.remove('active');
+        });
+
+        // Mostrar la pantalla seleccionada
+        const targetScreen = document.getElementById(screenId);
+        if (targetScreen) {
+            targetScreen.classList.add('active');
+            // Reiniciar scroll interno al cambiar de vista
+            const scrollContainer = targetScreen.querySelector('.content-scroll');
+            if (scrollContainer) {
+                scrollContainer.scrollTop = 0;
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
